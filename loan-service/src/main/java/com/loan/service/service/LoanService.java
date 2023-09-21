@@ -1,8 +1,7 @@
 package com.loan.service.service;
 
 import com.loan.service.entity.Loan;
-import com.loan.service.payload.LoanRequest;
-import com.loan.service.payload.LoanResponse;
+import com.loan.service.payload.*;
 
 import java.util.List;
 
@@ -12,4 +11,14 @@ public interface LoanService {
     List<LoanResponse> getAllLoan();
 
     LoanResponse getLoanById(String id);
+
+    LoanResponse getLoanByCustomerId(String id);
+
+    LoanResponse getLoanByLenderId(String id);
+
+    List<AggregationLender> getLoanByAggregateLender();
+
+    List<AggregationCustomer> getLoanByAggregateCustomer();
+
+    List<AggregationInterest> getLoanByAggregateInterest();
 }

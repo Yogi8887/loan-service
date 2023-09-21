@@ -1,9 +1,7 @@
 package com.loan.service.controller;
 
-import com.loan.service.entity.Loan;
 import com.loan.service.exception.ErrorCodes;
-import com.loan.service.payload.LoanRequest;
-import com.loan.service.payload.LoanResponse;
+import com.loan.service.payload.*;
 import com.loan.service.service.LoanService;
 import com.loan.service.utils.ApiConfig;
 import org.slf4j.Logger;
@@ -42,8 +40,33 @@ public class LoanController {
         return ResponseEntity.ok(loanService.getAllLoan());
     }
 
-    @GetMapping("/{loanId}")
+    @GetMapping("/loan/{loanId}")
     public ResponseEntity<LoanResponse> getLoanById(@PathVariable (name = "loanId") String id) {
         return ResponseEntity.ok(loanService.getLoanById(id));
+    }
+
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<LoanResponse> getLoanByCustomerId(@PathVariable (name = "customerId") String id) {
+        return ResponseEntity.ok(loanService.getLoanByCustomerId(id));
+    }
+
+    @GetMapping("/lender/{lenderId}")
+    public ResponseEntity<LoanResponse> getLoanByLenderId(@PathVariable (name = "lenderId") String id) {
+        return ResponseEntity.ok(loanService.getLoanByLenderId(id));
+    }
+
+    @GetMapping("/aggregate/lender")
+    public ResponseEntity<List<AggregationLender>> getLoanByAggregateLender() {
+        return ResponseEntity.ok(loanService.getLoanByAggregateLender());
+    }
+
+    @GetMapping("/aggregate/customer")
+    public ResponseEntity<List<AggregationCustomer>> getLoanByAggregateCustomer() {
+        return ResponseEntity.ok(loanService.getLoanByAggregateCustomer());
+    }
+
+    @GetMapping("/aggregate/interest")
+    public ResponseEntity<List<AggregationInterest>> getLoanByAggregateInterest() {
+        return ResponseEntity.ok(loanService.getLoanByAggregateInterest());
     }
 }
