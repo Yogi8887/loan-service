@@ -11,14 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -32,10 +30,20 @@ public class LoanController {
 
     //create
     @PostMapping("/add")
-    public ResponseEntity<LoanResponse> createLoan(@Valid @RequestBody LoanRequest loan) {
+    public ResponseEntity<LoanResponse> addLoan(@Valid @RequestBody LoanRequest loan) {
         if (Objects.isNull(loan)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ErrorCodes.INVALID_LOAN_REQUEST_CODE);
         }
         return ResponseEntity.ok(loanService.createLoan(loan));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<LoanResponse>> getAllLoan() {
+        return ResponseEntity.ok(loanService.getAllLoan());
+    }
+
+    @GetMapping("/{loanId}")
+    public ResponseEntity<LoanResponse> getLoanById(@PathVariable (name = "loanId") String id) {
+        return ResponseEntity.ok(loanService.getLoanById(id));
     }
 }
